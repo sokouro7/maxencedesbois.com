@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maxence Desbois — Account Executive</title>
+  <meta name="description" content="Full-cycle B2B SaaS Account Executive based in Paris. Selling, building, shipping." />
+  <meta property="og:title" content="Maxence Desbois — Account Executive" />
+  <meta property="og:description" content="Full-cycle B2B SaaS Account Executive based in Paris. Selling, building, shipping." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Top nav -->
+  <header class="nav">
+    <a href="#top" class="nav__logo" aria-label="Maxence Desbois">
+      <span class="nav__monogram">MD</span>
+      <span class="nav__name" data-i18n="nav.name">Maxence Desbois</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#track-record" data-i18n="nav.work">Work</a>
+      <a href="#build" data-i18n="nav.build">Build</a>
+      <a href="#beyond" data-i18n="nav.beyond">Beyond</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav__toggles">
+      <button class="toggle" id="lang-toggle" aria-label="Toggle language">
+        <span data-lang-on="en">FR</span><span data-lang-on="fr">EN</span>
+      </button>
+      <button class="toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__meta">
+        <span class="meta-line"><em data-i18n="hero.based">Based in</em> Paris, FR</span>
+        <span class="meta-line"><em data-i18n="hero.status">Status</em> <span class="dot dot--live"></span> <span data-i18n="hero.statusValue">Open to opportunities</span></span>
+      </div>
+
+      <h1 class="hero__title">
+        <span class="hero__line">Maxence</span>
+        <span class="hero__line hero__line--accent">Desbois<span class="tm">™</span></span>
+      </h1>
+
+      <div class="hero__role">
+        <span class="role-tag">AE</span>
+        <span class="role-sep">/</span>
+        <span class="role-tag">Builder</span>
+        <span class="role-sep">/</span>
+        <span class="role-tag">Operator</span>
+      </div>
+
+      <p class="hero__lede" data-i18n="hero.lede">
+        Full-cycle B2B Account Executive selling CRM &amp; marketing solutions at a French enterprise giant — and shipping his own micro-SaaS for sales teams on the side.
+      </p>
+
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--primary" data-i18n="hero.ctaPrimary">Get in touch</a>
+        <a href="#track-record" class="btn btn--ghost" data-i18n="hero.ctaSecondary">See the work ↓</a>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="section section--manifesto" id="manifesto">
+      <div class="section__head">
+        <span class="section__num">01</span>
+        <span class="section__label" data-i18n="manifesto.label">Manifesto</span>
+      </div>
+
+      <div class="manifesto">
+        <p data-i18n="manifesto.p1">
+          I'm a B2B sales operator with the instincts of a builder.
+        </p>
+        <p data-i18n="manifesto.p2">
+          Four years freelancing in digital marketing, full sales cycles closed at a French enterprise giant, and a habit of shipping my own tools when the existing ones don't cut it.
+        </p>
+        <p data-i18n="manifesto.p3">
+          I don't wait to be handed a playbook. I write mine, I test it on the phone, and I turn it into software.
+        </p>
+        <p class="manifesto__sign" data-i18n="manifesto.sign">— MD, Paris</p>
+      </div>
+    </section>
+
+    <!-- TRACK RECORD -->
+    <section class="section section--track" id="track-record">
+      <div class="section__head">
+        <span class="section__num">02</span>
+        <span class="section__label" data-i18n="track.label">Track Record</span>
+      </div>
+
+      <div class="track">
+        <article class="track__item">
+          <div class="track__years">
+            <span class="track__year">2025</span>
+            <span class="track__year-end" data-i18n="track.now">Now</span>
+          </div>
+          <div class="track__body">
+            <h3 class="track__company">La Poste Group</h3>
+            <p class="track__role" data-i18n="track.laposte.role">Account Executive — CRM &amp; Marketing Solutions</p>
+            <ul class="track__points">
+              <li data-i18n="track.laposte.p1">Full-cycle ownership: outbound, discovery, demo, negotiation, close.</li>
+              <li data-i18n="track.laposte.p2">Closed-won strategic accounts: Marché International de Rungis, Conseil Départemental 91, Cirque Pinder.</li>
+              <li data-i18n="track.laposte.p3">Cross-functional work with product &amp; marketing to align positioning with field reality.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="track__item">
+          <div class="track__years">
+            <span class="track__year">2024</span>
+            <span class="track__year-end">2025</span>
+          </div>
+          <div class="track__body">
+            <h3 class="track__company">Swatch Group</h3>
+            <p class="track__role" data-i18n="track.swatch.role">Sales Associate</p>
+            <ul class="track__points">
+              <li data-i18n="track.swatch.p1">Top 2 seller in France over the period.</li>
+              <li data-i18n="track.swatch.p2">Sales index of 1.69 — strong conversion and upselling.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="track__item">
+          <div class="track__years">
+            <span class="track__year">2021</span>
+            <span class="track__year-end">2024</span>
+          </div>
+          <div class="track__body">
+            <h3 class="track__company" data-i18n="track.freelance.company">Freelance</h3>
+            <p class="track__role" data-i18n="track.freelance.role">Digital Marketing Consultant</p>
+            <ul class="track__points">
+              <li data-i18n="track.freelance.p1">Full ownership of strategy, execution and performance for 20+ clients.</li>
+              <li data-i18n="track.freelance.p2">+15–20% retention uplift through targeted multi-channel campaigns.</li>
+              <li data-i18n="track.freelance.p3">Grew a newsletter from 0 to 1,500+ subscribers in 3 months.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="track__item">
+          <div class="track__years">
+            <span class="track__year">2019</span>
+            <span class="track__year-end">2021</span>
+          </div>
+          <div class="track__body">
+            <h3 class="track__company">TotalEnergies</h3>
+            <p class="track__role" data-i18n="track.total.role">Prospective &amp; Communication Project Manager (work-study)</p>
+            <ul class="track__points">
+              <li data-i18n="track.total.p1">Launched a LinkedIn page that hit 50,000+ followers in 8 months.</li>
+              <li data-i18n="track.total.p2">Delivered data-driven strategic recommendations to executive leadership (CDMS).</li>
+              <li data-i18n="track.total.p3">SME on emerging mobility ecosystems at a global scale.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="track__item track__item--minor">
+          <div class="track__years">
+            <span class="track__year">2018</span>
+          </div>
+          <div class="track__body">
+            <h3 class="track__company">Cartier</h3>
+            <p class="track__role" data-i18n="track.cartier.role">Sales Assistant — Summer</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- BUILD -->
+    <section class="section section--build" id="build">
+      <div class="section__head">
+        <span class="section__num">03</span>
+        <span class="section__label" data-i18n="build.label">Build</span>
+      </div>
+
+      <p class="section__intro" data-i18n="build.intro">
+        Two products I ship on the side. One is a paid micro-SaaS, the other is open source. Both solve problems I hit every day on the phone.
+      </p>
+
+      <div class="build">
+
+        <a href="https://weclosed.app" target="_blank" rel="noopener" class="build__card">
+          <div class="build__head">
+            <span class="build__name">WeClosed</span>
+            <span class="build__status build__status--live">● Live · Paid</span>
+          </div>
+          <h3 class="build__tagline" data-i18n="build.weclosed.tagline">
+            The cold call tracker that converts.
+          </h3>
+          <p class="build__desc" data-i18n="build.weclosed.desc">
+            Real-time call tracking, CRM data quality scoring and dopamine-driven gamification — built for SDRs and AEs who want to actually progress, session after session.
+          </p>
+          <div class="build__stack">
+            <span>Micro-SaaS</span>
+            <span>Subscription</span>
+            <span>Sales enablement</span>
+          </div>
+          <div class="build__cta">
+            <span data-i18n="build.weclosed.cta">Visit weclosed.app</span>
+            <span class="arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="https://sokouro7.github.io/mailseq/mailseq_v3.html" target="_blank" rel="noopener" class="build__card">
+          <div class="build__head">
+            <span class="build__name">Seqmail</span>
+            <span class="build__status build__status--os">● Open source</span>
+          </div>
+          <h3 class="build__tagline" data-i18n="build.seqmail.tagline">
+            Smart email sequences, sent from your own inbox.
+          </h3>
+          <p class="build__desc" data-i18n="build.seqmail.desc">
+            A lightweight tool to send personalized cold outreach sequences directly from your professional mailbox — no third-party sender, no deliverability tax.
+          </p>
+          <div class="build__stack">
+            <span>Open source</span>
+            <span>GitHub</span>
+            <span>Outbound</span>
+          </div>
+          <div class="build__cta">
+            <span data-i18n="build.seqmail.cta">View the project</span>
+            <span class="arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- BEYOND -->
+    <section class="section section--beyond" id="beyond">
+      <div class="section__head">
+        <span class="section__num">04</span>
+        <span class="section__label" data-i18n="beyond.label">Beyond the CV</span>
+      </div>
+
+      <div class="beyond">
+        <div class="beyond__item">
+          <span class="beyond__kicker" data-i18n="beyond.asia.kicker">8 months · 6 countries</span>
+          <h3 class="beyond__title" data-i18n="beyond.asia.title">A long road through Southeast Asia</h3>
+          <p data-i18n="beyond.asia.desc">Thailand, Cambodia, Indonesia, Korea, Japan, Singapore. A long-format trip taken on purpose — to look at the world from somewhere else and come back with sharper instincts.</p>
+        </div>
+        <div class="beyond__item">
+          <span class="beyond__kicker" data-i18n="beyond.languages.kicker">3 languages</span>
+          <h3 class="beyond__title" data-i18n="beyond.languages.title">FR · EN · 中文</h3>
+          <p data-i18n="beyond.languages.desc">Native French, fluent English, currently learning Mandarin. Three exchanges abroad during my Master's: Dublin, Montréal, Shanghai.</p>
+        </div>
+        <div class="beyond__item">
+          <span class="beyond__kicker" data-i18n="beyond.tutoring.kicker">Volunteer · Zup de Co</span>
+          <h3 class="beyond__title" data-i18n="beyond.tutoring.title">Tutoring middle schoolers</h3>
+          <p data-i18n="beyond.tutoring.desc">A full school year mentoring 8 students twice a week at Collège Françoise Seligmann. The first thing that taught me how to translate complex things into clear ones.</p>
+        </div>
+        <div class="beyond__item">
+          <span class="beyond__kicker" data-i18n="beyond.interests.kicker">Off-hours</span>
+          <h3 class="beyond__title" data-i18n="beyond.interests.title">Photography, sport, side projects</h3>
+          <p data-i18n="beyond.interests.desc">I spend my off-hours building small things, training, and pointing a camera at people and places. The same loop, in three different forms.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="section section--stack" id="stack">
+      <div class="section__head">
+        <span class="section__num">05</span>
+        <span class="section__label" data-i18n="stack.label">Stack</span>
+      </div>
+
+      <div class="stack">
+        <div class="stack__col">
+          <h4 data-i18n="stack.sales">Sales</h4>
+          <ul>
+            <li>Full-cycle B2B</li>
+            <li data-i18n="stack.sales.outbound">Outbound &amp; cold calling</li>
+            <li data-i18n="stack.sales.discovery">Discovery &amp; negotiation</li>
+            <li>CRM &amp; pipeline ops</li>
+            <li>Stakeholder coordination</li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <h4 data-i18n="stack.marketing">Marketing</h4>
+          <ul>
+            <li>Acquisition &amp; retention</li>
+            <li>CRM strategy</li>
+            <li data-i18n="stack.marketing.content">Content &amp; copywriting</li>
+            <li>Multi-channel campaigns</li>
+            <li>Newsletter growth</li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <h4 data-i18n="stack.tools">Tools</h4>
+          <ul>
+            <li>Power BI</li>
+            <li>Shopify</li>
+            <li>Mailchimp</li>
+            <li>System.io</li>
+            <li>Canva (pro)</li>
+            <li>AI &amp; LLM workflows</li>
+          </ul>
+        </div>
+        <div class="stack__col">
+          <h4 data-i18n="stack.languages">Languages</h4>
+          <ul>
+            <li data-i18n="stack.lang.fr">French — Native</li>
+            <li data-i18n="stack.lang.en">English — Fluent</li>
+            <li data-i18n="stack.lang.zh">Mandarin — Learning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section--contact" id="contact">
+      <div class="section__head">
+        <span class="section__num">06</span>
+        <span class="section__label" data-i18n="contact.label">Contact</span>
+      </div>
+
+      <div class="contact">
+        <h2 class="contact__headline" data-i18n="contact.headline">Let's talk.</h2>
+        <p class="contact__lede" data-i18n="contact.lede">
+          Building something in B2B SaaS that needs a full-cycle AE who can sell, write, and ship? Send a short note. I read everything.
+        </p>
+
+        <a href="mailto:maxence.desbois1@gmail.com" class="contact__mail">maxence.desbois1@gmail.com</a>
+
+        <div class="contact__links">
+          <a href="https://www.linkedin.com/in/maxence-desbois/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://github.com/sokouro7" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://weclosed.app" target="_blank" rel="noopener">WeClosed ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__line">
+      <span>© 2026 Maxence Desbois</span>
+      <span data-i18n="footer.designed">Designed &amp; coded with intent</span>
+      <span>Paris, FR</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
