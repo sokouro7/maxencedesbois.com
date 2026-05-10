@@ -26,13 +26,27 @@
       <span class="nav__name" data-i18n="nav.name">Maxence Desbois</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="#wins" data-i18n="nav.wins">Wins</a>
       <a href="#track-record" data-i18n="nav.work">Work</a>
       <a href="#build" data-i18n="nav.build">Build</a>
       <a href="#beyond" data-i18n="nav.beyond">Beyond</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="nav__toggles">
+      <!-- CV download — switches to the right PDF based on active language -->
+      <a id="cv-download"
+         href="Resume_Maxence_Desbois.pdf"
+         data-cv-en="Resume_Maxence_Desbois.pdf"
+         data-cv-fr="CV_Maxence_Desbois.pdf"
+         download
+         class="cv-btn"
+         aria-label="Download CV">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span data-i18n="nav.cv">Resume</span>
+      </a>
       <button class="toggle" id="lang-toggle" aria-label="Toggle language">
         <span data-lang-on="en">FR</span><span data-lang-on="fr">EN</span>
       </button>
@@ -45,33 +59,49 @@
 
   <main id="top">
 
-    <!-- HERO -->
+    <!-- HERO with photo -->
     <section class="hero">
-      <div class="hero__meta">
-        <span class="meta-line"><em data-i18n="hero.based">Based in</em> Paris, FR</span>
-        <span class="meta-line"><em data-i18n="hero.status">Status</em> <span class="dot dot--live"></span> <span data-i18n="hero.statusValue">Open to opportunities</span></span>
-      </div>
+      <div class="hero__grid">
 
-      <h1 class="hero__title">
-        <span class="hero__line">Maxence</span>
-        <span class="hero__line hero__line--accent">Desbois<span class="tm">™</span></span>
-      </h1>
+        <div class="hero__text">
+          <div class="hero__meta">
+            <span class="meta-line"><em data-i18n="hero.based">Based in</em> Paris, FR</span>
+            <span class="meta-line"><em data-i18n="hero.status">Status</em> <span class="dot dot--live"></span> <span data-i18n="hero.statusValue">Open to opportunities</span></span>
+          </div>
 
-      <div class="hero__role">
-        <span class="role-tag">AE</span>
-        <span class="role-sep">/</span>
-        <span class="role-tag">Builder</span>
-        <span class="role-sep">/</span>
-        <span class="role-tag">Operator</span>
-      </div>
+          <h1 class="hero__title">
+            <span class="hero__line hero__line--small" data-i18n="hero.greeting">Hi, I'm</span>
+            <span class="hero__line">Maxence<span class="tm">™</span></span>
+          </h1>
 
-      <p class="hero__lede" data-i18n="hero.lede">
-        Full-cycle B2B Account Executive selling CRM &amp; marketing solutions at a French enterprise giant — and shipping his own micro-SaaS for sales teams on the side.
-      </p>
+          <p class="hero__lede" data-i18n="hero.lede">
+            Nice to meet you. I'm a full-cycle B2B Account Executive selling CRM &amp; marketing solutions at La Poste Group — and shipping my own micro-SaaS for sales teams on the side.
+          </p>
 
-      <div class="hero__cta">
-        <a href="#contact" class="btn btn--primary" data-i18n="hero.ctaPrimary">Get in touch</a>
-        <a href="#wins" class="btn btn--ghost" data-i18n="hero.ctaSecondary">See the work ↓</a>
+          <div class="hero__role">
+            <span class="role-tag">AE</span>
+            <span class="role-sep">/</span>
+            <span class="role-tag">Builder</span>
+            <span class="role-sep">/</span>
+            <span class="role-tag">Operator</span>
+          </div>
+
+          <div class="hero__cta">
+            <a href="#contact" class="btn btn--primary" data-i18n="hero.ctaPrimary">Get in touch</a>
+            <a href="#track-record" class="btn btn--ghost" data-i18n="hero.ctaSecondary">See the work ↓</a>
+          </div>
+        </div>
+
+        <div class="hero__portrait">
+          <div class="hero__portrait-frame">
+            <img src="maxence.png" alt="Maxence Desbois" loading="eager" />
+          </div>
+          <div class="hero__portrait-caption">
+            <span class="hero__portrait-id">MD · 2026</span>
+            <span class="hero__portrait-loc">Paris</span>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -96,65 +126,20 @@
       </div>
     </section>
 
-    <!-- WINS -->
+    <!-- WINS / Tableau de chasse — DISABLED for now, will be reactivated when logos are ready
     <section class="section section--wins" id="wins">
       <div class="section__head">
         <span class="section__num">02</span>
-        <span class="section__label" data-i18n="wins.label">Wins · Closed-won</span>
+        <span class="section__label" data-i18n="wins.label">Wins</span>
       </div>
-
-      <p class="section__intro" data-i18n="wins.intro">
-        A selection of strategic accounts I've closed at La Poste Group on a brand new CRM &amp; marketing solution.
-      </p>
-
-      <div class="wins">
-        <article class="win">
-          <div class="win__mark">
-            <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg" aria-label="Marché International de Rungis">
-              <text x="120" y="48" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="26" fill="currentColor" text-anchor="middle" letter-spacing="-0.02em">Rungis</text>
-              <line x1="60" y1="60" x2="180" y2="60" stroke="currentColor" stroke-width="0.7" opacity="0.5"/>
-              <text x="120" y="78" font-family="JetBrains Mono, monospace" font-size="8.5" fill="currentColor" text-anchor="middle" letter-spacing="0.18em" opacity="0.7">MARCHÉ INTERNATIONAL</text>
-            </svg>
-          </div>
-          <h3 class="win__name" data-i18n="wins.rungis.name">Marché International de Rungis</h3>
-          <p class="win__type" data-i18n="wins.rungis.type">World's largest fresh-food market</p>
-        </article>
-
-        <article class="win">
-          <div class="win__mark">
-            <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg" aria-label="Conseil Départemental de l'Essonne">
-              <text x="120" y="42" font-family="JetBrains Mono, monospace" font-size="8.5" fill="currentColor" text-anchor="middle" letter-spacing="0.22em" opacity="0.7">CONSEIL DÉPARTEMENTAL</text>
-              <text x="100" y="78" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="32" fill="currentColor" text-anchor="middle" letter-spacing="-0.02em" font-style="italic">Essonne</text>
-              <text x="180" y="78" font-family="JetBrains Mono, monospace" font-size="13" fill="#D2691E" letter-spacing="0.05em">— 91</text>
-            </svg>
-          </div>
-          <h3 class="win__name" data-i18n="wins.essonne.name">Conseil Départemental 91</h3>
-          <p class="win__type" data-i18n="wins.essonne.type">French departmental authority — Essonne</p>
-        </article>
-
-        <article class="win">
-          <div class="win__mark">
-            <svg viewBox="0 0 240 110" xmlns="http://www.w3.org/2000/svg" aria-label="Cirque Pinder">
-              <text x="120" y="38" font-family="JetBrains Mono, monospace" font-size="8.5" fill="currentColor" text-anchor="middle" letter-spacing="0.3em" opacity="0.7">— CIRQUE —</text>
-              <text x="120" y="78" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="36" fill="currentColor" text-anchor="middle" letter-spacing="-0.01em">Pinder</text>
-              <line x1="80" y1="92" x2="160" y2="92" stroke="currentColor" stroke-width="0.7" opacity="0.4"/>
-              <text x="120" y="103" font-family="JetBrains Mono, monospace" font-size="7.5" fill="currentColor" text-anchor="middle" letter-spacing="0.2em" opacity="0.5">EST. 1854</text>
-            </svg>
-          </div>
-          <h3 class="win__name" data-i18n="wins.pinder.name">Cirque Pinder</h3>
-          <p class="win__type" data-i18n="wins.pinder.type">France's oldest circus — est. 1854</p>
-        </article>
-      </div>
-
-      <p class="wins__footnote" data-i18n="wins.footnote">
-        Plus other accounts in the public sector and beyond — happy to talk through them.
-      </p>
+      ...
     </section>
+    -->
 
     <!-- TRACK RECORD -->
     <section class="section section--track" id="track-record">
       <div class="section__head">
-        <span class="section__num">03</span>
+        <span class="section__num">02</span>
         <span class="section__label" data-i18n="track.label">Track Record</span>
       </div>
 
@@ -240,7 +225,7 @@
     <!-- BUILD -->
     <section class="section section--build" id="build">
       <div class="section__head">
-        <span class="section__num">04</span>
+        <span class="section__num">03</span>
         <span class="section__label" data-i18n="build.label">Build</span>
       </div>
 
@@ -314,7 +299,7 @@
     <!-- BEYOND -->
     <section class="section section--beyond" id="beyond">
       <div class="section__head">
-        <span class="section__num">05</span>
+        <span class="section__num">04</span>
         <span class="section__label" data-i18n="beyond.label">Beyond the CV</span>
       </div>
 
@@ -345,7 +330,7 @@
     <!-- STACK -->
     <section class="section section--stack" id="stack">
       <div class="section__head">
-        <span class="section__num">06</span>
+        <span class="section__num">05</span>
         <span class="section__label" data-i18n="stack.label">Stack</span>
       </div>
 
@@ -395,7 +380,7 @@
     <!-- CONTACT -->
     <section class="section section--contact" id="contact">
       <div class="section__head">
-        <span class="section__num">07</span>
+        <span class="section__num">06</span>
         <span class="section__label" data-i18n="contact.label">Contact</span>
       </div>
 
