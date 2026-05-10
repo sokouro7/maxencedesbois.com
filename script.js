@@ -1,8 +1,5 @@
 /* =========================================================
-   MAXENCE DESBOIS — Site logic
-   - Theme toggle (dark/light) with localStorage
-   - Language toggle (EN/FR) with localStorage
-   - Scroll reveal animations via IntersectionObserver
+   MAXENCE DESBOIS — Site logic v2
    ========================================================= */
 
 (() => {
@@ -12,7 +9,6 @@
   const themeBtn = document.getElementById('theme-toggle');
   const root = document.documentElement;
 
-  // Initial theme: localStorage > system pref > dark default
   const savedTheme = localStorage.getItem('md-theme');
   if (savedTheme) {
     root.setAttribute('data-theme', savedTheme);
@@ -32,6 +28,7 @@
   const I18N = {
     en: {
       'nav.name': 'Maxence Desbois',
+      'nav.wins': 'Wins',
       'nav.work': 'Work',
       'nav.build': 'Build',
       'nav.beyond': 'Beyond',
@@ -45,10 +42,20 @@
       'hero.ctaSecondary': 'See the work ↓',
 
       'manifesto.label': 'Manifesto',
-      'manifesto.p1': "I'm a B2B sales operator with the instincts of a builder.",
-      'manifesto.p2': "Four years freelancing in digital marketing, full sales cycles closed at a French enterprise giant, and a habit of shipping my own tools when the existing ones don't cut it.",
-      'manifesto.p3': "I don't wait to be handed a playbook. I write mine, I test it on the phone, and I turn it into software.",
+      'manifesto.p1': "I sell B2B for a living, and I build on the side.",
+      'manifesto.p2': "Four years of freelance digital marketing, full sales cycles closed at La Poste Group, and a habit of building small tools for the problems I run into every day on the phone.",
+      'manifesto.p3': "I'm still learning a lot — about SaaS, product, and the craft of a great sales motion. What I bring is a mix of curiosity, ownership, and the kind of energy that ships things.",
       'manifesto.sign': '— MD, Paris',
+
+      'wins.label': 'Wins · Closed-won',
+      'wins.intro': "A selection of strategic accounts I've closed at La Poste Group on a brand new CRM & marketing solution.",
+      'wins.rungis.name': 'Marché International de Rungis',
+      'wins.rungis.type': "World's largest fresh-food market",
+      'wins.essonne.name': 'Conseil Départemental 91',
+      'wins.essonne.type': 'French departmental authority — Essonne',
+      'wins.pinder.name': 'Cirque Pinder',
+      'wins.pinder.type': "France's oldest circus — est. 1854",
+      'wins.footnote': 'Plus other accounts in the public sector and beyond — happy to talk through them.',
 
       'track.label': 'Track Record',
       'track.now': 'Now',
@@ -69,6 +76,7 @@
       'track.total.p2': 'Delivered data-driven strategic recommendations to executive leadership (CDMS).',
       'track.total.p3': 'SME on emerging mobility ecosystems at a global scale.',
       'track.cartier.role': 'Sales Assistant — Summer',
+      'track.cartier.p1': 'Proactive account management and premium luxury service aligned with high-end merchandising standards.',
 
       'build.label': 'Build',
       'build.intro': "Two products I ship on the side. One is a paid micro-SaaS, the other is open source. Both solve problems I hit every day on the phone.",
@@ -106,13 +114,14 @@
       'stack.lang.zh': 'Mandarin — Learning',
 
       'contact.label': 'Contact',
-      'contact.headline': "Let's talk.",
-      'contact.lede': "Building something in B2B SaaS that needs a full-cycle AE who can sell, write, and ship? Send a short note. I read everything.",
+      'contact.headline': 'Get in touch.',
+      'contact.lede': "Building something in B2B SaaS that needs a full-cycle AE who can sell, write and ship? Send a short note. I read everything.",
 
       'footer.designed': 'Designed & coded with intent',
     },
     fr: {
       'nav.name': 'Maxence Desbois',
+      'nav.wins': 'Tableau de chasse',
       'nav.work': 'Parcours',
       'nav.build': 'Projets',
       'nav.beyond': 'Hors-CV',
@@ -126,10 +135,20 @@
       'hero.ctaSecondary': 'Voir le parcours ↓',
 
       'manifesto.label': 'Manifeste',
-      'manifesto.p1': "Je suis un commercial B2B avec une tête de builder.",
-      'manifesto.p2': "Quatre ans de freelance en marketing digital, des cycles de vente complets fermés dans un grand groupe français, et l'habitude de shipper mes propres outils quand ceux du marché ne suffisent pas.",
-      'manifesto.p3': "Je n'attends pas qu'on me tende un playbook. J'écris le mien, je le teste au téléphone, et j'en fais un produit.",
+      'manifesto.p1': "Je vends en B2B le jour, et je construis à côté.",
+      'manifesto.p2': "Quatre ans de freelance en marketing digital, des cycles de vente complets closés au sein du groupe La Poste, et l'habitude de construire de petits outils pour les problèmes que je rencontre tous les jours au téléphone.",
+      'manifesto.p3': "J'ai encore beaucoup à apprendre — sur le SaaS, le produit, et l'art d'un beau cycle de vente. Ce que j'apporte, c'est un mélange de curiosité, d'ownership, et de l'énergie qu'il faut pour shipper.",
       'manifesto.sign': '— MD, Paris',
+
+      'wins.label': 'Tableau de chasse · Comptes signés',
+      'wins.intro': "Une sélection de comptes stratégiques signés au sein du groupe La Poste sur une nouvelle solution CRM & marketing.",
+      'wins.rungis.name': 'Marché International de Rungis',
+      'wins.rungis.type': 'Plus grand marché de produits frais au monde',
+      'wins.essonne.name': 'Conseil Départemental 91',
+      'wins.essonne.type': "Collectivité territoriale — Essonne",
+      'wins.pinder.name': 'Cirque Pinder',
+      'wins.pinder.type': 'Plus ancien cirque de France — fondé en 1854',
+      'wins.footnote': "D'autres comptes signés dans le secteur public et au-delà — j'en parle volontiers.",
 
       'track.label': 'Parcours',
       'track.now': "Aujourd'hui",
@@ -146,10 +165,11 @@
       'track.freelance.p2': '+15 à 20 % de rétention via des campagnes multi-canales ciblées.',
       'track.freelance.p3': 'Newsletter passée de 0 à 1 500+ abonnés en 3 mois.',
       'track.total.role': 'Chef de Projet Prospective & Communication (alternance)',
-      'track.total.p1': 'Lancement d\'une page LinkedIn ayant atteint 50 000+ abonnés en 8 mois.',
+      'track.total.p1': "Lancement d'une page LinkedIn ayant atteint 50 000+ abonnés en 8 mois.",
       'track.total.p2': 'Recommandations stratégiques data-driven au comité exécutif (CDMS).',
-      'track.total.p3': 'Subject Matter Expert sur les écosystèmes de mobilité émergente à l\'échelle mondiale.',
+      'track.total.p3': "Subject Matter Expert sur les écosystèmes de mobilité émergente à l'échelle mondiale.",
       'track.cartier.role': 'Assistant de Vente — Été',
+      'track.cartier.p1': "Gestion proactive des comptes et délivrance d'un service premium aligné sur les codes du merchandising luxe.",
 
       'build.label': 'Projets',
       'build.intro': "Deux produits que je shippe à côté. L'un est un micro-SaaS payant, l'autre est open source. Les deux résolvent des problèmes que je rencontre tous les jours au téléphone.",
@@ -187,7 +207,7 @@
       'stack.lang.zh': 'Mandarin — En cours',
 
       'contact.label': 'Contact',
-      'contact.headline': 'Parlons-en.',
+      'contact.headline': 'Contactez-moi.',
       'contact.lede': "Vous construisez un produit B2B SaaS qui a besoin d'un AE full-cycle capable de vendre, écrire et shipper ? Écrivez-moi un mot court. Je lis tout.",
 
       'footer.designed': 'Conçu & codé avec intention',
@@ -207,7 +227,6 @@
     localStorage.setItem('md-lang', lang);
   }
 
-  // Initial language: localStorage > browser > en default
   const savedLang = localStorage.getItem('md-lang');
   let initialLang = 'en';
   if (savedLang === 'en' || savedLang === 'fr') {
@@ -223,7 +242,7 @@
   });
 
   /* ---------------- SCROLL REVEAL ---------------- */
-  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item');
+  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item, .win');
   revealEls.forEach(el => el.classList.add('reveal-up'));
 
   if ('IntersectionObserver' in window) {
