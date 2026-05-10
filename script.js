@@ -1,5 +1,5 @@
 /* =========================================================
-   MAXENCE DESBOIS — Site logic v5
+   MAXENCE DESBOIS — Site logic v6
    ========================================================= */
 
 (() => {
@@ -31,9 +31,9 @@
       // NAV
       'nav.name': 'Maxence Desbois',
       'nav.about': 'About',
-      'nav.numbers': 'Numbers',
       'nav.career': 'Career',
       'nav.build': 'Build',
+      'nav.beyond': 'Beyond',
       'nav.contact': 'Contact',
       'nav.cv': 'Resume',
 
@@ -52,15 +52,7 @@
       'about.p2': "What I love is the mix of strategy, psychology and execution — finding the angle, then making things move.",
       'about.p3': "Today, I'm drawn to SaaS and product-driven environments, alongside ambitious teams.",
 
-      // 02 NUMBERS
-      'numbers.label': 'Track Record · The Numbers',
-      'numbers.intro': 'A few signals from the field — closed deals and accounts handled.',
-      'numbers.revenue.label': 'Cumulative ARR closed',
-      'numbers.revenue.sub': 'Across strategic accounts at La Poste Group.',
-      'numbers.accounts.label': 'Accounts handled',
-      'numbers.accounts.sub': 'Strategic clients in B2B and freelance combined.',
-
-      // 03 CAREER
+      // 02 CAREER
       'career.label': 'Career',
       'career.now': 'Now',
       'career.laposte.role': 'Account Executive — CRM & Marketing Solutions',
@@ -82,7 +74,7 @@
       'career.cartier.role': 'Sales Assistant — Summer',
       'career.cartier.p1': 'Proactive account management and premium luxury service aligned with high-end merchandising standards.',
 
-      // 04 BUILD
+      // 03 BUILD
       'build.label': 'Build',
       'build.intro': "Two products I ship on the side. One is a paid micro-SaaS, the other is open source. Both solve problems I hit every day on the phone.",
       'build.weclosed.status': '● Live · Paid SaaS',
@@ -100,7 +92,7 @@
       'build.seqmail.tag3': 'Outbound',
       'build.seqmail.cta': 'View the project',
 
-      // 05 BEYOND
+      // 04 BEYOND
       'beyond.label': 'Beyond the CV',
       'beyond.asia.kicker': '8 months · 6 countries',
       'beyond.asia.title': 'A long road through Southeast Asia',
@@ -115,7 +107,7 @@
       'beyond.interests.title': 'Photography, sport, side projects',
       'beyond.interests.desc': 'I spend my off-hours building small things, training, and pointing a camera at people and places. The same loop, in three different forms.',
 
-      // 06 STACK
+      // 05 STACK
       'stack.label': 'Stack',
       'stack.sales.title': 'Sales',
       'stack.sales.l1': 'Full-cycle B2B',
@@ -137,19 +129,19 @@
       'stack.languages.en': 'English — Fluent',
       'stack.languages.zh': 'Mandarin — Learning',
 
-      // 07 CONTACT
+      // 06 CONTACT
       'contact.label': 'Contact',
       'contact.headline': 'Get in touch.',
-      'contact.lede': "Building something in B2B SaaS that needs a full-cycle AE who can sell, write and ship? Send a short note. I read everything.",
+      'contact.lede': "Hiring sales? Let's run the discovery call.",
     },
 
     fr: {
       // NAV
       'nav.name': 'Maxence Desbois',
       'nav.about': 'À propos',
-      'nav.numbers': 'Chiffres',
       'nav.career': 'Parcours',
       'nav.build': 'Projets',
+      'nav.beyond': 'Hors-CV',
       'nav.contact': 'Contact',
       'nav.cv': 'CV',
 
@@ -168,15 +160,7 @@
       'about.p2': "Ce que j'aime, c'est le mélange de stratégie, de psychologie et d'exécution — trouver le bon angle, puis faire bouger les choses.",
       'about.p3': "Aujourd'hui, je m'intéresse aux environnements SaaS et product-driven, aux côtés d'équipes ambitieuses.",
 
-      // 02 NUMBERS
-      'numbers.label': 'Track Record · Les chiffres',
-      'numbers.intro': "Quelques signaux du terrain — deals signés et comptes accompagnés.",
-      'numbers.revenue.label': 'CA cumulé signé',
-      'numbers.revenue.sub': 'Sur des comptes stratégiques au sein du groupe La Poste.',
-      'numbers.accounts.label': 'Comptes accompagnés',
-      'numbers.accounts.sub': 'Clients stratégiques en B2B et freelance cumulés.',
-
-      // 03 CAREER
+      // 02 CAREER
       'career.label': 'Parcours',
       'career.now': "Aujourd'hui",
       'career.laposte.role': 'Account Executive — Solutions CRM & Marketing',
@@ -198,7 +182,7 @@
       'career.cartier.role': 'Assistant de Vente — Été',
       'career.cartier.p1': "Gestion proactive des comptes et délivrance d'un service premium aligné sur les codes du merchandising luxe.",
 
-      // 04 BUILD
+      // 03 BUILD
       'build.label': 'Projets',
       'build.intro': "Deux produits que je shippe à côté. L'un est un micro-SaaS payant, l'autre est open source. Les deux résolvent des problèmes que je rencontre tous les jours au téléphone.",
       'build.weclosed.status': '● Live · SaaS payant',
@@ -216,7 +200,7 @@
       'build.seqmail.tag3': 'Outbound',
       'build.seqmail.cta': 'Voir le projet',
 
-      // 05 BEYOND
+      // 04 BEYOND
       'beyond.label': 'Hors-CV',
       'beyond.asia.kicker': '8 mois · 6 pays',
       'beyond.asia.title': "Un long voyage en Asie du Sud-Est",
@@ -231,7 +215,7 @@
       'beyond.interests.title': 'Photographie, sport, side projects',
       'beyond.interests.desc': "Mon temps libre, c'est trois choses : construire des petits trucs, m'entraîner, et pointer un appareil photo sur des gens et des lieux. La même boucle, sous trois formes.",
 
-      // 06 STACK
+      // 05 STACK
       'stack.label': 'Stack',
       'stack.sales.title': 'Sales',
       'stack.sales.l1': 'Vente B2B full-cycle',
@@ -253,10 +237,10 @@
       'stack.languages.en': 'Anglais — Courant',
       'stack.languages.zh': 'Mandarin — En cours',
 
-      // 07 CONTACT
+      // 06 CONTACT
       'contact.label': 'Contact',
       'contact.headline': 'Contactez-moi.',
-      'contact.lede': "Vous construisez un produit B2B SaaS qui a besoin d'un AE full-cycle capable de vendre, écrire et shipper ? Écrivez-moi un mot court. Je lis tout.",
+      'contact.lede': "Vous recrutez côté sales ? Passons à notre découverte.",
     }
   };
 
@@ -294,53 +278,8 @@
     applyLang(current);
   });
 
-  /* ---------------- STATS COUNT-UP ---------------- */
-  const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
-
-  function animateCount(el) {
-    const target = parseInt(el.getAttribute('data-target'), 10);
-    const suffix = el.getAttribute('data-suffix') || '';
-    const duration = 1800;
-    const startTime = performance.now();
-
-    function step(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = easeOutQuart(progress);
-      const current = Math.round(target * eased);
-      el.textContent = current + suffix;
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = target + suffix;
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  const statNums = document.querySelectorAll('.stat__num');
-  if ('IntersectionObserver' in window && statNums.length > 0) {
-    const statObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          statObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    statNums.forEach(el => statObs.observe(el));
-  } else {
-    statNums.forEach(el => {
-      const target = el.getAttribute('data-target');
-      const suffix = el.getAttribute('data-suffix') || '';
-      el.textContent = target + suffix;
-    });
-  }
-
   /* ---------------- SCROLL REVEAL ---------------- */
-  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item, .stat');
+  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item');
   revealEls.forEach(el => el.classList.add('reveal-up'));
 
   if ('IntersectionObserver' in window) {
