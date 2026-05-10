@@ -1,5 +1,5 @@
 /* =========================================================
-   MAXENCE DESBOIS — Site logic v3
+   MAXENCE DESBOIS — Site logic v4
    ========================================================= */
 
 (() => {
@@ -29,6 +29,7 @@
   const I18N = {
     en: {
       'nav.name': 'Maxence Desbois',
+      'nav.stats': 'Numbers',
       'nav.work': 'Work',
       'nav.build': 'Build',
       'nav.beyond': 'Beyond',
@@ -43,13 +44,19 @@
       'hero.ctaPrimary': 'Get in touch',
       'hero.ctaSecondary': 'See the work ↓',
 
-      'manifesto.label': 'Manifesto',
-      'manifesto.p1': "I sell B2B for a living, and I build on the side.",
-      'manifesto.p2': "Four years of freelance digital marketing, full sales cycles closed at La Poste Group, and a habit of building small tools for the problems I run into every day on the phone.",
-      'manifesto.p3': "I'm still learning a lot — about SaaS, product, and the craft of a great sales motion. What I bring is a mix of curiosity, ownership, and the kind of energy that ships things.",
-      'manifesto.sign': '— MD, Paris',
+      'about.label': 'About',
+      'about.p1': "Four years between digital marketing and complex B2B sales. At La Poste Group, I learned to run full sales cycles, read business stakes fast, and earn trust over time.",
+      'about.p2': "What I love is the mix of strategy, psychology and execution — finding the angle, then making things move.",
+      'about.p3': "Today, I'm drawn to SaaS and product-driven environments, alongside ambitious teams.",
 
-      'track.label': 'Track Record',
+      'stats.label': 'Track Record · The Numbers',
+      'stats.intro': 'A few signals from the field — closed deals, accounts handled, channels grown.',
+      'stats.revenue.label': 'Cumulative ARR closed',
+      'stats.revenue.sub': 'Across strategic accounts at La Poste Group.',
+      'stats.accounts.label': 'Accounts handled',
+      'stats.accounts.sub': 'Strategic clients in B2B and freelance combined.',
+
+      'track.label': 'Career',
       'track.now': 'Now',
       'track.laposte.role': 'Account Executive — CRM & Marketing Solutions',
       'track.laposte.p1': 'Full-cycle ownership: outbound, discovery, demo, negotiation, close.',
@@ -108,11 +115,10 @@
       'contact.label': 'Contact',
       'contact.headline': 'Get in touch.',
       'contact.lede': "Building something in B2B SaaS that needs a full-cycle AE who can sell, write and ship? Send a short note. I read everything.",
-
-      'footer.designed': 'Designed & coded with intent',
     },
     fr: {
       'nav.name': 'Maxence Desbois',
+      'nav.stats': 'Chiffres',
       'nav.work': 'Parcours',
       'nav.build': 'Projets',
       'nav.beyond': 'Hors-CV',
@@ -127,11 +133,17 @@
       'hero.ctaPrimary': 'Me contacter',
       'hero.ctaSecondary': 'Voir le parcours ↓',
 
-      'manifesto.label': 'Manifeste',
-      'manifesto.p1': "Je vends en B2B le jour, et je construis à côté.",
-      'manifesto.p2': "Quatre ans de freelance en marketing digital, des cycles de vente complets closés au sein du groupe La Poste, et l'habitude de construire de petits outils pour les problèmes que je rencontre tous les jours au téléphone.",
-      'manifesto.p3': "J'ai encore beaucoup à apprendre — sur le SaaS, le produit, et l'art d'un beau cycle de vente. Ce que j'apporte, c'est un mélange de curiosité, d'ownership, et de l'énergie qu'il faut pour shipper.",
-      'manifesto.sign': '— MD, Paris',
+      'about.label': 'À propos',
+      'about.p1': "Quatre ans entre marketing digital et vente B2B complexe. Au sein du groupe La Poste, j'ai appris à piloter des cycles de vente complets, lire les enjeux business vite, et construire la confiance dans la durée.",
+      'about.p2': "Ce que j'aime, c'est le mélange de stratégie, de psychologie et d'exécution — trouver le bon angle, puis faire bouger les choses.",
+      'about.p3': "Aujourd'hui, je m'intéresse aux environnements SaaS et product-driven, aux côtés d'équipes ambitieuses.",
+
+      'stats.label': 'Track Record · Les chiffres',
+      'stats.intro': "Quelques signaux du terrain — deals signés, comptes accompagnés, canaux développés.",
+      'stats.revenue.label': 'CA cumulé signé',
+      'stats.revenue.sub': 'Sur des comptes stratégiques au sein du groupe La Poste.',
+      'stats.accounts.label': 'Comptes accompagnés',
+      'stats.accounts.sub': 'Clients stratégiques en B2B et freelance cumulés.',
 
       'track.label': 'Parcours',
       'track.now': "Aujourd'hui",
@@ -192,8 +204,6 @@
       'contact.label': 'Contact',
       'contact.headline': 'Contactez-moi.',
       'contact.lede': "Vous construisez un produit B2B SaaS qui a besoin d'un AE full-cycle capable de vendre, écrire et shipper ? Écrivez-moi un mot court. Je lis tout.",
-
-      'footer.designed': 'Conçu & codé avec intention',
     }
   };
 
@@ -201,7 +211,6 @@
     document.documentElement.setAttribute('lang', lang);
     document.body.setAttribute('data-lang', lang);
 
-    // Translations
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       const value = I18N[lang]?.[key];
@@ -210,7 +219,6 @@
       }
     });
 
-    // CV link points to the right PDF
     if (cvBtn) {
       const href = cvBtn.getAttribute(`data-cv-${lang}`);
       if (href) cvBtn.setAttribute('href', href);
@@ -233,8 +241,54 @@
     applyLang(current);
   });
 
+  /* ---------------- STATS COUNT-UP ---------------- */
+  const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+
+  function animateCount(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 1800;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuart(progress);
+      const current = Math.round(target * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target + suffix;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const statNums = document.querySelectorAll('.stat__num');
+  if ('IntersectionObserver' in window && statNums.length > 0) {
+    const statObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    statNums.forEach(el => statObs.observe(el));
+  } else {
+    // Fallback: just set the final number
+    statNums.forEach(el => {
+      const target = el.getAttribute('data-target');
+      const suffix = el.getAttribute('data-suffix') || '';
+      el.textContent = target + suffix;
+    });
+  }
+
   /* ---------------- SCROLL REVEAL ---------------- */
-  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item');
+  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item, .stat');
   revealEls.forEach(el => el.classList.add('reveal-up'));
 
   if ('IntersectionObserver' in window) {
