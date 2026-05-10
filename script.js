@@ -1,5 +1,5 @@
 /* =========================================================
-   MAXENCE DESBOIS — Site logic v2
+   MAXENCE DESBOIS — Site logic v3
    ========================================================= */
 
 (() => {
@@ -24,20 +24,22 @@
 
   /* ---------------- LANGUAGE ---------------- */
   const langBtn = document.getElementById('lang-toggle');
+  const cvBtn = document.getElementById('cv-download');
 
   const I18N = {
     en: {
       'nav.name': 'Maxence Desbois',
-      'nav.wins': 'Wins',
       'nav.work': 'Work',
       'nav.build': 'Build',
       'nav.beyond': 'Beyond',
       'nav.contact': 'Contact',
+      'nav.cv': 'Resume',
 
       'hero.based': 'Based in',
       'hero.status': 'Status',
       'hero.statusValue': 'Open to opportunities',
-      'hero.lede': 'Full-cycle B2B Account Executive selling CRM & marketing solutions at a French enterprise giant — and shipping his own micro-SaaS for sales teams on the side.',
+      'hero.greeting': "Hi, I'm",
+      'hero.lede': "Nice to meet you. I'm a full-cycle B2B Account Executive selling CRM & marketing solutions at La Poste Group — and shipping my own micro-SaaS for sales teams on the side.",
       'hero.ctaPrimary': 'Get in touch',
       'hero.ctaSecondary': 'See the work ↓',
 
@@ -46,16 +48,6 @@
       'manifesto.p2': "Four years of freelance digital marketing, full sales cycles closed at La Poste Group, and a habit of building small tools for the problems I run into every day on the phone.",
       'manifesto.p3': "I'm still learning a lot — about SaaS, product, and the craft of a great sales motion. What I bring is a mix of curiosity, ownership, and the kind of energy that ships things.",
       'manifesto.sign': '— MD, Paris',
-
-      'wins.label': 'Wins · Closed-won',
-      'wins.intro': "A selection of strategic accounts I've closed at La Poste Group on a brand new CRM & marketing solution.",
-      'wins.rungis.name': 'Marché International de Rungis',
-      'wins.rungis.type': "World's largest fresh-food market",
-      'wins.essonne.name': 'Conseil Départemental 91',
-      'wins.essonne.type': 'French departmental authority — Essonne',
-      'wins.pinder.name': 'Cirque Pinder',
-      'wins.pinder.type': "France's oldest circus — est. 1854",
-      'wins.footnote': 'Plus other accounts in the public sector and beyond — happy to talk through them.',
 
       'track.label': 'Track Record',
       'track.now': 'Now',
@@ -121,16 +113,17 @@
     },
     fr: {
       'nav.name': 'Maxence Desbois',
-      'nav.wins': 'Tableau de chasse',
       'nav.work': 'Parcours',
       'nav.build': 'Projets',
       'nav.beyond': 'Hors-CV',
       'nav.contact': 'Contact',
+      'nav.cv': 'CV',
 
       'hero.based': 'Basé à',
       'hero.status': 'Statut',
       'hero.statusValue': 'Ouvert aux opportunités',
-      'hero.lede': "Account Executive B2B full-cycle sur les solutions CRM & marketing d'un grand groupe français — et builder d'un micro-SaaS pour les équipes commerciales sur son temps libre.",
+      'hero.greeting': 'Salut, moi c’est',
+      'hero.lede': "Ravi de vous rencontrer. Je suis Account Executive B2B full-cycle, je vends des solutions CRM & marketing au sein du groupe La Poste — et je shippe mon propre micro-SaaS pour les équipes commerciales à côté.",
       'hero.ctaPrimary': 'Me contacter',
       'hero.ctaSecondary': 'Voir le parcours ↓',
 
@@ -139,16 +132,6 @@
       'manifesto.p2': "Quatre ans de freelance en marketing digital, des cycles de vente complets closés au sein du groupe La Poste, et l'habitude de construire de petits outils pour les problèmes que je rencontre tous les jours au téléphone.",
       'manifesto.p3': "J'ai encore beaucoup à apprendre — sur le SaaS, le produit, et l'art d'un beau cycle de vente. Ce que j'apporte, c'est un mélange de curiosité, d'ownership, et de l'énergie qu'il faut pour shipper.",
       'manifesto.sign': '— MD, Paris',
-
-      'wins.label': 'Tableau de chasse · Comptes signés',
-      'wins.intro': "Une sélection de comptes stratégiques signés au sein du groupe La Poste sur une nouvelle solution CRM & marketing.",
-      'wins.rungis.name': 'Marché International de Rungis',
-      'wins.rungis.type': 'Plus grand marché de produits frais au monde',
-      'wins.essonne.name': 'Conseil Départemental 91',
-      'wins.essonne.type': "Collectivité territoriale — Essonne",
-      'wins.pinder.name': 'Cirque Pinder',
-      'wins.pinder.type': 'Plus ancien cirque de France — fondé en 1854',
-      'wins.footnote': "D'autres comptes signés dans le secteur public et au-delà — j'en parle volontiers.",
 
       'track.label': 'Parcours',
       'track.now': "Aujourd'hui",
@@ -217,6 +200,8 @@
   function applyLang(lang) {
     document.documentElement.setAttribute('lang', lang);
     document.body.setAttribute('data-lang', lang);
+
+    // Translations
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       const value = I18N[lang]?.[key];
@@ -224,6 +209,13 @@
         el.innerHTML = value;
       }
     });
+
+    // CV link points to the right PDF
+    if (cvBtn) {
+      const href = cvBtn.getAttribute(`data-cv-${lang}`);
+      if (href) cvBtn.setAttribute('href', href);
+    }
+
     localStorage.setItem('md-lang', lang);
   }
 
@@ -242,7 +234,7 @@
   });
 
   /* ---------------- SCROLL REVEAL ---------------- */
-  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item, .win');
+  const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item');
   revealEls.forEach(el => el.classList.add('reveal-up'));
 
   if ('IntersectionObserver' in window) {
