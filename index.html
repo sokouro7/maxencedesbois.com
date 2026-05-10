@@ -26,13 +26,13 @@
       <span class="nav__name" data-i18n="nav.name">Maxence Desbois</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
+      <a href="#stats" data-i18n="nav.stats">Numbers</a>
       <a href="#track-record" data-i18n="nav.work">Work</a>
       <a href="#build" data-i18n="nav.build">Build</a>
       <a href="#beyond" data-i18n="nav.beyond">Beyond</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="nav__toggles">
-      <!-- CV download — switches to the right PDF based on active language -->
       <a id="cv-download"
          href="Resume_Maxence_Desbois.pdf"
          data-cv-en="Resume_Maxence_Desbois.pdf"
@@ -88,7 +88,7 @@
 
           <div class="hero__cta">
             <a href="#contact" class="btn btn--primary" data-i18n="hero.ctaPrimary">Get in touch</a>
-            <a href="#track-record" class="btn btn--ghost" data-i18n="hero.ctaSecondary">See the work ↓</a>
+            <a href="#stats" class="btn btn--ghost" data-i18n="hero.ctaSecondary">See the work ↓</a>
           </div>
         </div>
 
@@ -96,51 +96,68 @@
           <div class="hero__portrait-frame">
             <img src="maxence.png" alt="Maxence Desbois" loading="eager" />
           </div>
-          <div class="hero__portrait-caption">
-            <span class="hero__portrait-id">MD · 2026</span>
-            <span class="hero__portrait-loc">Paris</span>
-          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- MANIFESTO -->
-    <section class="section section--manifesto" id="manifesto">
+    <!-- ABOUT (short) -->
+    <section class="section section--about" id="about">
       <div class="section__head">
         <span class="section__num">01</span>
-        <span class="section__label" data-i18n="manifesto.label">Manifesto</span>
+        <span class="section__label" data-i18n="about.label">About</span>
       </div>
 
-      <div class="manifesto">
-        <p data-i18n="manifesto.p1">
-          I sell B2B for a living, and I build on the side.
+      <div class="about">
+        <p data-i18n="about.p1">
+          Four years between digital marketing and complex B2B sales. At La Poste Group, I learned to run full sales cycles, read business stakes fast, and earn trust over time.
         </p>
-        <p data-i18n="manifesto.p2">
-          Four years of freelance digital marketing, full sales cycles closed at La Poste Group, and a habit of building small tools for the problems I run into every day on the phone.
+        <p data-i18n="about.p2">
+          What I love is the mix of strategy, psychology and execution — finding the angle, then making things move.
         </p>
-        <p data-i18n="manifesto.p3">
-          I'm still learning a lot — about SaaS, product, and the craft of a great sales motion. What I bring is a mix of curiosity, ownership, and the kind of energy that ships things.
+        <p data-i18n="about.p3">
+          Today, I'm drawn to SaaS and product-driven environments, alongside ambitious teams.
         </p>
-        <p class="manifesto__sign" data-i18n="manifesto.sign">— MD, Paris</p>
       </div>
     </section>
 
-    <!-- WINS / Tableau de chasse — DISABLED for now, will be reactivated when logos are ready
-    <section class="section section--wins" id="wins">
+    <!-- TRACK RECORD / NUMBERS -->
+    <section class="section section--stats" id="stats">
       <div class="section__head">
         <span class="section__num">02</span>
-        <span class="section__label" data-i18n="wins.label">Wins</span>
+        <span class="section__label" data-i18n="stats.label">Track Record · The Numbers</span>
       </div>
-      ...
+
+      <p class="section__intro" data-i18n="stats.intro">
+        A few signals from the field — closed deals, accounts handled, channels grown.
+      </p>
+
+      <div class="stats">
+
+        <article class="stat">
+          <div class="stat__value">
+            <span class="stat__sign">+</span><span class="stat__num" data-target="140" data-suffix="K€">0</span>
+          </div>
+          <h3 class="stat__label" data-i18n="stats.revenue.label">Cumulative ARR closed</h3>
+          <p class="stat__sub" data-i18n="stats.revenue.sub">Across strategic accounts at La Poste Group.</p>
+        </article>
+
+        <article class="stat">
+          <div class="stat__value">
+            <span class="stat__sign">+</span><span class="stat__num" data-target="21">0</span>
+          </div>
+          <h3 class="stat__label" data-i18n="stats.accounts.label">Accounts handled</h3>
+          <p class="stat__sub" data-i18n="stats.accounts.sub">Strategic clients in B2B and freelance combined.</p>
+        </article>
+
+      </div>
     </section>
-    -->
 
     <!-- TRACK RECORD -->
     <section class="section section--track" id="track-record">
       <div class="section__head">
-        <span class="section__num">02</span>
-        <span class="section__label" data-i18n="track.label">Track Record</span>
+        <span class="section__num">03</span>
+        <span class="section__label" data-i18n="track.label">Career</span>
       </div>
 
       <div class="track">
@@ -225,7 +242,7 @@
     <!-- BUILD -->
     <section class="section section--build" id="build">
       <div class="section__head">
-        <span class="section__num">03</span>
+        <span class="section__num">04</span>
         <span class="section__label" data-i18n="build.label">Build</span>
       </div>
 
@@ -299,7 +316,7 @@
     <!-- BEYOND -->
     <section class="section section--beyond" id="beyond">
       <div class="section__head">
-        <span class="section__num">04</span>
+        <span class="section__num">05</span>
         <span class="section__label" data-i18n="beyond.label">Beyond the CV</span>
       </div>
 
@@ -330,7 +347,7 @@
     <!-- STACK -->
     <section class="section section--stack" id="stack">
       <div class="section__head">
-        <span class="section__num">05</span>
+        <span class="section__num">06</span>
         <span class="section__label" data-i18n="stack.label">Stack</span>
       </div>
 
@@ -380,7 +397,7 @@
     <!-- CONTACT -->
     <section class="section section--contact" id="contact">
       <div class="section__head">
-        <span class="section__num">06</span>
+        <span class="section__num">07</span>
         <span class="section__label" data-i18n="contact.label">Contact</span>
       </div>
 
@@ -394,8 +411,6 @@
 
         <div class="contact__links">
           <a href="https://www.linkedin.com/in/maxence-desbois/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a href="https://github.com/sokouro7" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="https://weclosed.app" target="_blank" rel="noopener">WeClosed ↗</a>
         </div>
       </div>
     </section>
@@ -405,7 +420,6 @@
   <footer class="footer">
     <div class="footer__line">
       <span>© 2026 Maxence Desbois</span>
-      <span data-i18n="footer.designed">Designed &amp; coded with intent</span>
       <span>Paris, FR</span>
     </div>
   </footer>
