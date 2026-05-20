@@ -52,6 +52,11 @@
       'about.p2': "What I love is the mix of strategy, psychology and execution — finding the angle, then making things move.",
       'about.p3': "Today, I'm drawn to SaaS and product-driven environments, alongside ambitious teams.",
 
+      // 02 COUNTER
+      'counter.label': 'Live Counter',
+      'counter.kicker': 'Generated this year, in real time',
+      'counter.sub': "Based on last year's closed revenue at La Poste Group. The counter never stops — same way the work doesn't.",
+
       // 02 CAREER
       'career.label': 'Career',
       'career.now': 'Now',
@@ -168,6 +173,11 @@
       'about.p1': "Quatre ans entre marketing digital et vente B2B complexe. Au sein du groupe La Poste, j'ai appris à piloter des cycles de vente complets, lire les enjeux business vite, et construire la confiance dans la durée.",
       'about.p2': "Ce que j'aime, c'est le mélange de stratégie, de psychologie et d'exécution — trouver le bon angle, puis faire bouger les choses.",
       'about.p3': "Aujourd'hui, je m'intéresse aux environnements SaaS et product-driven, aux côtés d'équipes ambitieuses.",
+
+      // 02 COUNTER
+      'counter.label': 'Compteur en direct',
+      'counter.kicker': 'Généré cette année, en temps réel',
+      'counter.sub': "Calculé à partir du CA signé l'année dernière au sein du groupe La Poste. Le compteur ne s'arrête jamais — comme le travail.",
 
       // 02 CAREER
       'career.label': 'Parcours',
@@ -295,6 +305,44 @@
     const current = document.body.getAttribute('data-lang') === 'en' ? 'fr' : 'en';
     applyLang(current);
   });
+
+  /* ---------------- LIVE COUNTER ---------------- */
+  // Annual revenue baseline (last year's closed revenue at La Poste Group)
+  const ANNUAL_REVENUE = 350000;
+
+  // Number of seconds in a non-leap year
+  const SECONDS_PER_YEAR = 365 * 24 * 60 * 60;
+
+  // Revenue generated per second
+  const PER_SECOND = ANNUAL_REVENUE / SECONDS_PER_YEAR;
+
+  const counterEl = document.getElementById('counter-number');
+
+  function getYearStart() {
+    const now = new Date();
+    return new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
+  }
+
+  function computeCurrentValue() {
+    const now = new Date();
+    const elapsedSeconds = (now - getYearStart()) / 1000;
+    return elapsedSeconds * PER_SECOND;
+  }
+
+  function formatNumber(num) {
+    // French formatting with non-breaking space as thousands separator
+    return Math.floor(num).toLocaleString('fr-FR').replace(/,/g, ' ');
+  }
+
+  if (counterEl) {
+    // Initial value
+    counterEl.textContent = formatNumber(computeCurrentValue());
+
+    // Update every ~150ms for a smooth ticking effect
+    setInterval(() => {
+      counterEl.textContent = formatNumber(computeCurrentValue());
+    }, 150);
+  }
 
   /* ---------------- SCROLL REVEAL ---------------- */
   const revealEls = document.querySelectorAll('.section, .track__item, .build__card, .beyond__item');
