@@ -492,59 +492,6 @@ ul { list-style: none; }
   .stat { padding: 2.5rem 1.75rem; }
 }
 
-/* ---------- Live Counter ---------- */
-.section--counter {
-  text-align: center;
-}
-.section--counter .section__head {
-  text-align: left;
-}
-.counter {
-  padding: 3rem 0 1rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.counter__kicker {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--fg-2);
-  margin-bottom: 1.5rem;
-}
-.counter__value {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 7rem);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
-  font-variant-numeric: tabular-nums;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.05em;
-}
-#counter-number {
-  display: inline-block;
-  font-variant-numeric: tabular-nums;
-}
-.counter__currency {
-  font-size: 0.65em;
-  color: var(--accent);
-  opacity: 0.85;
-}
-.counter__sub {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  line-height: 1.5;
-  color: var(--fg-2);
-  max-width: 55ch;
-  margin: 0 auto;
-}
-
 /* ---------- Track Record ---------- */
 .track { display: flex; flex-direction: column; }
 .track__item {
