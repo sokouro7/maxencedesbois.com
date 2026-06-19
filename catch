@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Catch" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <title>Catch — by Maxence Desbois</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0A0A'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='500' fill='%23D2691E' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230A0A0A'/%3E%3Ctext x='90' y='125' font-family='Georgia,serif' font-size='100' font-weight='500' fill='%23D2691E' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #D2691E;
+      --accent-2: #E5803A;
+      --bg: #0A0A0A;
+      --bg-2: #141413;
+      --bg-3: #1E1D1B;
+      --fg: #F5F1EA;
+      --fg-2: #B8B2A7;
+      --fg-3: #6B6660;
+      --line: #2A2925;
+      --line-2: #3A3935;
+
+      --tag-r: #E5803A;
+      --tag-n: #6BA8C4;
+      --tag-p: #B8B26F;
+
+      --font-display: 'Fraunces', 'Times New Roman', serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding-bottom: 5.5rem;
+      padding-top: env(safe-area-inset-top);
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+      color: inherit;
+    }
+
+    button { cursor: pointer; border: none; background: none; }
+    input, textarea, select {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: var(--fg);
+      width: 100%;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    input::placeholder, textarea::placeholder { color: var(--fg-3); }
+    textarea { resize: vertical; min-height: 60px; }
+
+    /* ============== HEADER ============== */
+    .app-header {
+      padding: 1rem 1.25rem 0.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.25rem;
+    }
+    .app-header__brand {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+    .app-header__brand .accent { color: var(--accent); }
+    .app-header__sub {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+
+    /* ============== TABS ============== */
+    .tabbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--line);
+      padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.25rem;
+      z-index: 50;
+    }
+    .tabbar button {
+      padding: 0.65rem 0.5rem;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .tabbar button.active {
+      color: var(--accent);
+      background: var(--bg-3);
+    }
+    .tabbar button svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    /* ============== VIEWS ============== */
+    .view {
+      display: none;
+      padding: 0 1.25rem;
+    }
+    .view.active { display: block; }
+
+    /* ============== CAPTURE VIEW ============== */
+    .capture-hero {
+      text-align: center;
+      padding: 1rem 0 1.5rem;
+    }
+    .capture-hero__count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 0.5rem;
+    }
+    .capture-hero__count strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .capture-hero__title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin-bottom: 0.4rem;
+    }
+    .capture-hero__sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--fg-2);
+    }
+
+    .big-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .big-action {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+    .big-action:active {
+      background: var(--bg-3);
+      transform: scale(0.99);
+    }
+    .big-action--primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0A0A0A;
+    }
+    .big-action--primary:active {
+      background: var(--accent-2);
+    }
+    .big-action__icon {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.15);
+      display: grid;
+      place-items: center;
+    }
+    .big-action--primary .big-action__icon { background: rgba(0,0,0,0.18); }
+    .big-action:not(.big-action--primary) .big-action__icon {
+      background: var(--bg-3);
+      color: var(--accent);
+    }
+    .big-action__icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+    }
+    .big-action__text {
+      flex: 1;
+      text-align: left;
+    }
+    .big-action__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      margin-bottom: 0.15rem;
+    }
+    .big-action__sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    .big-action__arrow {
+      flex-shrink: 0;
+      font-size: 1.4rem;
+      opacity: 0.5;
+    }
+
+    /* Last capture preview */
+    .last-capture {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .last-capture__label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 0.15rem;
+    }
+    .last-capture__name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--fg);
+    }
+    .last-capture__company {
+      font-size: 0.85rem;
+      color: var(--fg-2);
+    }
+    .last-capture__edit {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0.4rem 0.6rem;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+    }
+
+    /* ============== FORM (MODAL) ============== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      animation: fade-in 0.2s ease;
+    }
+    .modal.active { display: flex; }
+    .modal__sheet {
+      background: var(--bg);
+      width: 100%;
+      max-height: 92vh;
+      max-height: 92dvh;
+      overflow-y: auto;
+      border-radius: 24px 24px 0 0;
+      padding: 1rem 1.25rem 2rem;
+      padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+      animation: slide-up 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-top: 1px solid var(--line);
+    }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slide-up {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .modal__handle {
+      width: 40px;
+      height: 4px;
+      background: var(--line-2);
+      border-radius: 2px;
+      margin: 0 auto 1rem;
+    }
+    .modal__title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+    .modal__sub {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 0.8rem;
+    }
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+    .field-label .required { color: var(--accent); }
+
+    /* Tags selector */
+    .tags-select {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .tag-btn {
+      padding: 0.85rem 0.5rem;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg-2);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+      color: var(--fg-2);
+      text-align: center;
+      line-height: 1.3;
+    }
+    .tag-btn .tag-letter {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 0.1rem;
+      letter-spacing: 0;
+    }
+    .tag-btn[data-active="true"] {
+      color: #0A0A0A;
+      border-color: currentColor;
+    }
+    .tag-btn[data-tag="R"][data-active="true"] {
+      background: var(--tag-r);
+      border-color: var(--tag-r);
+    }
+    .tag-btn[data-tag="N"][data-active="true"] {
+      background: var(--tag-n);
+      border-color: var(--tag-n);
+    }
+    .tag-btn[data-tag="P"][data-active="true"] {
+      background: var(--tag-p);
+      border-color: var(--tag-p);
+    }
+
+    /* Card photo */
+    .photo-zone {
+      position: relative;
+      background: var(--bg-2);
+      border: 1px dashed var(--line-2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+    .photo-zone__input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .photo-zone__placeholder {
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .photo-zone__placeholder svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      margin-bottom: 0.4rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .photo-zone--has-photo {
+      padding: 0;
+      border-style: solid;
+    }
+    .photo-zone__img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      display: block;
+      border-radius: 11px;
+    }
+    .photo-zone__remove {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.7);
+      color: var(--fg);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Form actions */
+    .form-actions {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+    .btn {
+      flex: 1;
+      padding: 1rem 1rem;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .btn--primary {
+      background: var(--accent);
+      color: #0A0A0A;
+    }
+    .btn--primary:active { background: var(--accent-2); }
+    .btn--ghost {
+      background: var(--bg-2);
+      color: var(--fg-2);
+      border: 1px solid var(--line);
+    }
+    .btn--ghost:active { background: var(--bg-3); }
+    .btn--danger {
+      color: #E66B6B;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+    }
+
+    /* ============== LIST VIEW ============== */
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .list-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .list-count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .list-count strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--bg-2);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+    }
+    .filter-pill[data-active="true"] {
+      background: var(--accent);
+      color: #0A0A0A;
+      border-color: var(--accent);
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .contact-card {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      transition: background 0.15s ease;
+    }
+    .contact-card:active { background: var(--bg-3); }
+    .contact-card__tag {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 500;
+      color: #0A0A0A;
+    }
+    .contact-card__tag[data-tag="R"] { background: var(--tag-r); }
+    .contact-card__tag[data-tag="N"] { background: var(--tag-n); }
+    .contact-card__tag[data-tag="P"] { background: var(--tag-p); }
+    .contact-card__tag[data-tag=""] {
+      background: var(--bg-3);
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+    .contact-card__body { flex: 1; min-width: 0; }
+    .contact-card__name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .contact-card__company {
+      font-size: 0.82rem;
+      color: var(--fg-2);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .contact-card__meta {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-top: 0.3rem;
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+    .contact-card__meta-item { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .contact-card__dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+    .empty-state__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--fg-2);
+      margin-bottom: 0.5rem;
+    }
+    .empty-state__sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+
+    /* ============== EXPORT VIEW ============== */
+    .export-header {
+      margin-bottom: 1.5rem;
+    }
+    .export-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .export-sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      color: var(--fg-2);
+      font-size: 1rem;
+    }
+    .export-stats {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+    .export-stat {
+      text-align: center;
+    }
+    .export-stat__num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .export-stat__label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-top: 0.25rem;
+    }
+
+    .export-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .export-action {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.1rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-align: left;
+      transition: background 0.15s ease;
+      width: 100%;
+    }
+    .export-action:active { background: var(--bg-3); }
+    .export-action__icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--bg-3);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+    }
+    .export-action__icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+    }
+    .export-action__text { flex: 1; }
+    .export-action__title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.1rem;
+    }
+    .export-action__sub {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .export-action__arrow {
+      font-size: 1.1rem;
+      color: var(--fg-3);
+    }
+
+    .danger-zone {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .danger-zone__title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: calc(5rem + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--accent);
+      color: #0A0A0A;
+      padding: 0.85rem 1.4rem;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 200;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* iPhone notch / safe areas */
+    @supports (padding: max(0px)) {
+      .app-header { padding-top: max(1rem, env(safe-area-inset-top)); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div>
+      <div class="app-header__brand">Catch<span class="accent">.</span></div>
+    </div>
+    <div class="app-header__sub" id="event-label">Vivatech · 2026</div>
+  </header>
+
+  <!-- CAPTURE VIEW -->
+  <div class="view active" id="view-capture">
+    <div class="capture-hero">
+      <div class="capture-hero__count"><strong id="hero-count">0</strong> contact<span id="hero-plural"></span> captured today</div>
+      <h1 class="capture-hero__title">Next one?</h1>
+      <p class="capture-hero__sub">Make it count.</p>
+    </div>
+
+    <div class="big-actions">
+      <button class="big-action big-action--primary" id="btn-photo">
+        <div class="big-action__icon">
+          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <div class="big-action__text">
+          <div class="big-action__title">Snap business card</div>
+          <div class="big-action__sub">Photo + quick tag</div>
+        </div>
+        <div class="big-action__arrow">→</div>
+      </button>
+
+      <button class="big-action" id="btn-manual">
+        <div class="big-action__icon">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        </div>
+        <div class="big-action__text">
+          <div class="big-action__title">Type contact in</div>
+          <div class="big-action__sub">When there's no card</div>
+        </div>
+        <div class="big-action__arrow">→</div>
+      </button>
+    </div>
+
+    <div id="last-capture-wrap"></div>
+  </div>
+
+  <!-- LIST VIEW -->
+  <div class="view" id="view-list">
+    <div class="list-header">
+      <h2 class="list-title">Captured</h2>
+      <div class="list-count"><strong id="list-count">0</strong> total</div>
+    </div>
+
+    <div class="filters">
+      <button class="filter-pill" data-filter="all" data-active="true">All</button>
+      <button class="filter-pill" data-filter="R">R · Recruiter</button>
+      <button class="filter-pill" data-filter="N">N · Network</button>
+      <button class="filter-pill" data-filter="P">P · Prospect</button>
+    </div>
+
+    <div class="contact-list" id="contact-list"></div>
+  </div>
+
+  <!-- EXPORT VIEW -->
+  <div class="view" id="view-export">
+    <div class="export-header">
+      <h2 class="export-title">After the floor</h2>
+      <p class="export-sub">Take your captures home.</p>
+    </div>
+
+    <div class="export-stats">
+      <div class="export-stat">
+        <div class="export-stat__num" id="stat-total">0</div>
+        <div class="export-stat__label">Total</div>
+      </div>
+      <div class="export-stat">
+        <div class="export-stat__num" id="stat-r" style="color: var(--tag-r);">0</div>
+        <div class="export-stat__label">Recruit</div>
+      </div>
+      <div class="export-stat">
+        <div class="export-stat__num" id="stat-n" style="color: var(--tag-n);">0</div>
+        <div class="export-stat__label">Network</div>
+      </div>
+      <div class="export-stat">
+        <div class="export-stat__num" id="stat-p" style="color: var(--tag-p);">0</div>
+        <div class="export-stat__label">Prospect</div>
+      </div>
+    </div>
+
+    <div class="export-actions">
+      <button class="export-action" id="export-csv">
+        <div class="export-action__icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="export-action__text">
+          <div class="export-action__title">Download CSV</div>
+          <div class="export-action__sub">Open in Numbers / Sheets</div>
+        </div>
+        <span class="export-action__arrow">↓</span>
+      </button>
+
+      <button class="export-action" id="export-vcf">
+        <div class="export-action__icon">
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="export-action__text">
+          <div class="export-action__title">Download vCards</div>
+          <div class="export-action__sub">Add to iPhone Contacts</div>
+        </div>
+        <span class="export-action__arrow">↓</span>
+      </button>
+
+      <button class="export-action" id="export-followups">
+        <div class="export-action__icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="export-action__text">
+          <div class="export-action__title">Schedule J+2 follow-ups</div>
+          <div class="export-action__sub">Calendar reminders for everyone</div>
+        </div>
+        <span class="export-action__arrow">↓</span>
+      </button>
+    </div>
+
+    <div class="danger-zone">
+      <div class="danger-zone__title">Danger zone</div>
+      <button class="btn btn--danger" id="clear-all" style="width: 100%;">Clear everything</button>
+    </div>
+  </div>
+
+  <!-- TABBAR -->
+  <nav class="tabbar">
+    <button data-view="capture" class="active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      Capture
+    </button>
+    <button data-view="list">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      List
+    </button>
+    <button data-view="export">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export
+    </button>
+  </nav>
+
+  <!-- FORM MODAL -->
+  <div class="modal" id="form-modal">
+    <div class="modal__sheet">
+      <div class="modal__handle"></div>
+      <h3 class="modal__title" id="modal-title">New contact</h3>
+      <div class="modal__sub" id="modal-sub">Just the essentials. Complete later.</div>
+
+      <form id="contact-form" class="form-grid" autocomplete="off">
+        <input type="hidden" id="f-id" />
+
+        <!-- Photo zone -->
+        <div>
+          <span class="field-label">Business card</span>
+          <div class="photo-zone" id="photo-zone">
+            <input type="file" accept="image/*" capture="environment" id="f-photo-input" class="photo-zone__input" />
+            <div class="photo-zone__placeholder" id="photo-placeholder">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              Tap to take a photo
+            </div>
+            <img class="photo-zone__img" id="photo-preview" style="display:none;" />
+            <button type="button" class="photo-zone__remove" id="photo-remove" style="display:none;">×</button>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="form-row-2">
+          <div>
+            <label class="field-label" for="f-first">First name<span class="required"> *</span></label>
+            <input type="text" id="f-first" required autocomplete="off" autocorrect="off" />
+          </div>
+          <div>
+            <label class="field-label" for="f-last">Last name</label>
+            <input type="text" id="f-last" autocomplete="off" autocorrect="off" />
+          </div>
+        </div>
+
+        <!-- Company + Role -->
+        <div>
+          <label class="field-label" for="f-company">Company</label>
+          <input type="text" id="f-company" autocomplete="off" />
+        </div>
+
+        <div>
+          <label class="field-label" for="f-role">Role / title</label>
+          <input type="text" id="f-role" autocomplete="off" />
+        </div>
+
+        <!-- Tags -->
+        <div>
+          <span class="field-label">Priority tag</span>
+          <div class="tags-select" id="tags-select">
+            <button type="button" class="tag-btn" data-tag="R">
+              <span class="tag-letter">R</span>
+              Recruit
+            </button>
+            <button type="button" class="tag-btn" data-tag="N">
+              <span class="tag-letter">N</span>
+              Network
+            </button>
+            <button type="button" class="tag-btn" data-tag="P">
+              <span class="tag-letter">P</span>
+              Prospect
+            </button>
+          </div>
+        </div>
+
+        <!-- Context -->
+        <div>
+          <label class="field-label" for="f-context">Where / context</label>
+          <input type="text" id="f-context" placeholder="e.g. Salesforce stand, AI conf, lunch" autocomplete="off" />
+        </div>
+
+        <!-- Hook -->
+        <div>
+          <label class="field-label" for="f-hook">Follow-up hook</label>
+          <textarea id="f-hook" rows="2" placeholder="What you promised to send, or what's worth mentioning"></textarea>
+        </div>
+
+        <!-- Optional contact details -->
+        <details>
+          <summary style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); padding: 0.5rem 0; cursor: pointer;">+ More fields</summary>
+          <div class="form-grid" style="padding-top: 0.5rem;">
+            <div>
+              <label class="field-label" for="f-email">Email</label>
+              <input type="email" id="f-email" autocomplete="off" autocapitalize="off" />
+            </div>
+            <div>
+              <label class="field-label" for="f-phone">Phone</label>
+              <input type="tel" id="f-phone" autocomplete="off" />
+            </div>
+            <div>
+              <label class="field-label" for="f-linkedin">LinkedIn URL or username</label>
+              <input type="text" id="f-linkedin" autocomplete="off" autocapitalize="off" placeholder="e.g. john-doe or full URL" />
+            </div>
+          </div>
+        </details>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn--ghost" id="form-cancel">Cancel</button>
+          <button type="submit" class="btn btn--primary">Save</button>
+        </div>
+
+        <button type="button" class="btn btn--danger" id="form-delete" style="display:none; margin-top: 0.5rem;">Delete contact</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    // ===========================================================
+    // STORAGE
+    // ===========================================================
+    const STORAGE_KEY = 'catch-contacts-v1';
+    const EVENT_KEY = 'catch-event-name';
+
+    let contacts = [];
+    let currentFilter = 'all';
+    let editingId = null;
+    let currentTag = '';
+    let currentPhoto = null;
+
+    function loadContacts() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        contacts = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        contacts = [];
+      }
+    }
+
+    function saveContacts() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
+      } catch (e) {
+        toast('Storage full — try Export then Clear');
+      }
+    }
+
+    function uid() {
+      return 'c_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    }
+
+    // ===========================================================
+    // TOAST
+    // ===========================================================
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ===========================================================
+    // VIEWS
+    // ===========================================================
+    function switchView(name) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view-' + name).classList.add('active');
+      document.querySelectorAll('.tabbar button').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === name);
+      });
+      if (name === 'list') renderList();
+      if (name === 'export') renderStats();
+      if (name === 'capture') renderCapture();
+    }
+
+    document.querySelectorAll('.tabbar button').forEach(b => {
+      b.addEventListener('click', () => switchView(b.dataset.view));
+    });
+
+    // ===========================================================
+    // CAPTURE VIEW
+    // ===========================================================
+    function renderCapture() {
+      const n = contacts.length;
+      document.getElementById('hero-count').textContent = n;
+      document.getElementById('hero-plural').textContent = n === 1 ? '' : 's';
+
+      const wrap = document.getElementById('last-capture-wrap');
+      if (n === 0) {
+        wrap.innerHTML = '';
+        return;
+      }
+      const last = contacts[contacts.length - 1];
+      const fullName = ((last.firstName || '') + ' ' + (last.lastName || '')).trim() || '(unnamed)';
+      wrap.innerHTML = `
+        <div class="last-capture">
+          <div style="flex: 1;">
+            <div class="last-capture__label">Last captured</div>
+            <div class="last-capture__name">${escapeHTML(fullName)}</div>
+            ${last.company ? `<div class="last-capture__company">${escapeHTML(last.company)}</div>` : ''}
+          </div>
+          <button class="last-capture__edit" data-edit-id="${last.id}">Edit</button>
+        </div>
+      `;
+      wrap.querySelector('[data-edit-id]')?.addEventListener('click', (e) => {
+        openForm(e.currentTarget.dataset.editId);
+      });
+    }
+
+    document.getElementById('btn-photo').addEventListener('click', () => {
+      openForm(null, { triggerPhoto: true });
+    });
+    document.getElementById('btn-manual').addEventListener('click', () => {
+      openForm(null);
+    });
+
+    // ===========================================================
+    // FORM MODAL
+    // ===========================================================
+    const modal = document.getElementById('form-modal');
+    const form = document.getElementById('contact-form');
+
+    function openForm(id, opts = {}) {
+      editingId = id;
+      currentTag = '';
+      currentPhoto = null;
+
+      // Reset form
+      form.reset();
+      document.getElementById('f-id').value = '';
+      document.querySelectorAll('.tag-btn').forEach(b => b.dataset.active = 'false');
+      document.getElementById('photo-preview').style.display = 'none';
+      document.getElementById('photo-placeholder').style.display = 'block';
+      document.getElementById('photo-remove').style.display = 'none';
+      document.getElementById('photo-zone').classList.remove('photo-zone--has-photo');
+
+      if (id) {
+        // Edit mode
+        const c = contacts.find(c => c.id === id);
+        if (!c) return;
+        document.getElementById('modal-title').textContent = 'Edit contact';
+        document.getElementById('modal-sub').textContent = 'Update what you know now.';
+        document.getElementById('f-id').value = c.id;
+        document.getElementById('f-first').value = c.firstName || '';
+        document.getElementById('f-last').value = c.lastName || '';
+        document.getElementById('f-company').value = c.company || '';
+        document.getElementById('f-role').value = c.role || '';
+        document.getElementById('f-context').value = c.context || '';
+        document.getElementById('f-hook').value = c.hook || '';
+        document.getElementById('f-email').value = c.email || '';
+        document.getElementById('f-phone').value = c.phone || '';
+        document.getElementById('f-linkedin').value = c.linkedin || '';
+        if (c.tag) {
+          currentTag = c.tag;
+          document.querySelector(`.tag-btn[data-tag="${c.tag}"]`).dataset.active = 'true';
+        }
+        if (c.photo) {
+          currentPhoto = c.photo;
+          document.getElementById('photo-preview').src = c.photo;
+          document.getElementById('photo-preview').style.display = 'block';
+          document.getElementById('photo-placeholder').style.display = 'none';
+          document.getElementById('photo-remove').style.display = 'grid';
+          document.getElementById('photo-zone').classList.add('photo-zone--has-photo');
+        }
+        document.getElementById('form-delete').style.display = 'block';
+      } else {
+        document.getElementById('modal-title').textContent = 'New contact';
+        document.getElementById('modal-sub').textContent = 'Just the essentials. Complete later.';
+        document.getElementById('form-delete').style.display = 'none';
+      }
+
+      modal.classList.add('active');
+
+      // Auto-trigger photo capture if needed
+      if (opts.triggerPhoto) {
+        setTimeout(() => {
+          document.getElementById('f-photo-input').click();
+        }, 250);
+      } else {
+        setTimeout(() => {
+          document.getElementById('f-first').focus();
+        }, 250);
+      }
+    }
+
+    function closeForm() {
+      modal.classList.remove('active');
+      editingId = null;
+      currentTag = '';
+      currentPhoto = null;
+    }
+
+    document.getElementById('form-cancel').addEventListener('click', closeForm);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeForm();
+    });
+
+    // Tag selector
+    document.querySelectorAll('.tag-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const tag = b.dataset.tag;
+        if (currentTag === tag) {
+          // Toggle off
+          currentTag = '';
+          b.dataset.active = 'false';
+        } else {
+          document.querySelectorAll('.tag-btn').forEach(x => x.dataset.active = 'false');
+          currentTag = tag;
+          b.dataset.active = 'true';
+        }
+      });
+    });
+
+    // Photo handling
+    const photoInput = document.getElementById('f-photo-input');
+    photoInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const dataUrl = await compressImage(file, 1200, 0.75);
+        currentPhoto = dataUrl;
+        document.getElementById('photo-preview').src = dataUrl;
+        document.getElementById('photo-preview').style.display = 'block';
+        document.getElementById('photo-placeholder').style.display = 'none';
+        document.getElementById('photo-remove').style.display = 'grid';
+        document.getElementById('photo-zone').classList.add('photo-zone--has-photo');
+      } catch (err) {
+        toast('Photo error');
+      }
+    });
+
+    document.getElementById('photo-remove').addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      currentPhoto = null;
+      photoInput.value = '';
+      document.getElementById('photo-preview').style.display = 'none';
+      document.getElementById('photo-placeholder').style.display = 'block';
+      document.getElementById('photo-remove').style.display = 'none';
+      document.getElementById('photo-zone').classList.remove('photo-zone--has-photo');
+    });
+
+    function compressImage(file, maxSize, quality) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let w = img.width, h = img.height;
+            if (w > h && w > maxSize) {
+              h = h * (maxSize / w);
+              w = maxSize;
+            } else if (h > maxSize) {
+              w = w * (maxSize / h);
+              h = maxSize;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Form submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const firstName = document.getElementById('f-first').value.trim();
+      if (!firstName) {
+        toast('First name required');
+        return;
+      }
+
+      const data = {
+        id: editingId || uid(),
+        firstName,
+        lastName: document.getElementById('f-last').value.trim(),
+        company: document.getElementById('f-company').value.trim(),
+        role: document.getElementById('f-role').value.trim(),
+        tag: currentTag,
+        context: document.getElementById('f-context').value.trim(),
+        hook: document.getElementById('f-hook').value.trim(),
+        email: document.getElementById('f-email').value.trim(),
+        phone: document.getElementById('f-phone').value.trim(),
+        linkedin: document.getElementById('f-linkedin').value.trim(),
+        photo: currentPhoto,
+        createdAt: editingId ? (contacts.find(c => c.id === editingId)?.createdAt || Date.now()) : Date.now(),
+        updatedAt: Date.now(),
+      };
+
+      if (editingId) {
+        contacts = contacts.map(c => c.id === editingId ? data : c);
+        toast('Saved');
+      } else {
+        contacts.push(data);
+        toast('Captured');
+      }
+      saveContacts();
+      closeForm();
+      renderCapture();
+    });
+
+    document.getElementById('form-delete').addEventListener('click', () => {
+      if (!editingId) return;
+      if (!confirm('Delete this contact?')) return;
+      contacts = contacts.filter(c => c.id !== editingId);
+      saveContacts();
+      closeForm();
+      renderCapture();
+      renderList();
+      toast('Deleted');
+    });
+
+    // ===========================================================
+    // LIST VIEW
+    // ===========================================================
+    function renderList() {
+      const list = document.getElementById('contact-list');
+      const filtered = currentFilter === 'all'
+        ? contacts
+        : contacts.filter(c => c.tag === currentFilter);
+
+      document.getElementById('list-count').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state__title">Nothing yet.</div>
+            <div class="empty-state__sub">${currentFilter === 'all' ? 'Capture your first contact' : 'No matches'}</div>
+          </div>
+        `;
+        return;
+      }
+
+      // Sort by most recent first
+      const sorted = [...filtered].sort((a, b) => b.createdAt - a.createdAt);
+
+      list.innerHTML = sorted.map(c => {
+        const fullName = ((c.firstName || '') + ' ' + (c.lastName || '')).trim() || '(unnamed)';
+        const tagLetter = c.tag || '·';
+        const company = [c.company, c.role].filter(Boolean).join(' · ');
+        const metaItems = [];
+        if (c.photo) metaItems.push('<span class="contact-card__meta-item"><span class="contact-card__dot"></span>Card</span>');
+        if (c.email) metaItems.push('<span class="contact-card__meta-item">@</span>');
+        if (c.linkedin) metaItems.push('<span class="contact-card__meta-item">in</span>');
+        if (c.phone) metaItems.push('<span class="contact-card__meta-item">tel</span>');
+        return `
+          <div class="contact-card" data-id="${c.id}">
+            <div class="contact-card__tag" data-tag="${c.tag || ''}">${escapeHTML(tagLetter)}</div>
+            <div class="contact-card__body">
+              <div class="contact-card__name">${escapeHTML(fullName)}</div>
+              ${company ? `<div class="contact-card__company">${escapeHTML(company)}</div>` : ''}
+              ${metaItems.length ? `<div class="contact-card__meta">${metaItems.join('')}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      list.querySelectorAll('.contact-card').forEach(card => {
+        card.addEventListener('click', () => openForm(card.dataset.id));
+      });
+    }
+
+    document.querySelectorAll('.filter-pill').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(x => x.dataset.active = 'false');
+        p.dataset.active = 'true';
+        currentFilter = p.dataset.filter;
+        renderList();
+      });
+    });
+
+    // ===========================================================
+    // EXPORT VIEW
+    // ===========================================================
+    function renderStats() {
+      document.getElementById('stat-total').textContent = contacts.length;
+      document.getElementById('stat-r').textContent = contacts.filter(c => c.tag === 'R').length;
+      document.getElementById('stat-n').textContent = contacts.filter(c => c.tag === 'N').length;
+      document.getElementById('stat-p').textContent = contacts.filter(c => c.tag === 'P').length;
+    }
+
+    function download(filename, content, mime) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    document.getElementById('export-csv').addEventListener('click', () => {
+      if (contacts.length === 0) { toast('Nothing to export'); return; }
+      const headers = ['First name', 'Last name', 'Company', 'Role', 'Tag', 'Email', 'Phone', 'LinkedIn', 'Context', 'Follow-up hook', 'Captured at'];
+      const rows = contacts.map(c => [
+        c.firstName, c.lastName, c.company, c.role, c.tag, c.email, c.phone, c.linkedin, c.context, c.hook,
+        new Date(c.createdAt).toISOString()
+      ]);
+      const csv = [headers, ...rows]
+        .map(row => row.map(cell => {
+          const s = String(cell || '');
+          return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+        }).join(','))
+        .join('\n');
+      const stamp = new Date().toISOString().slice(0, 10);
+      download(`catch-${stamp}.csv`, '\uFEFF' + csv, 'text/csv;charset=utf-8');
+      toast('CSV downloaded');
+    });
+
+    document.getElementById('export-vcf').addEventListener('click', () => {
+      if (contacts.length === 0) { toast('Nothing to export'); return; }
+      const vcards = contacts.map(c => {
+        const lines = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          `N:${esc(c.lastName)};${esc(c.firstName)};;;`,
+          `FN:${esc(((c.firstName||'') + ' ' + (c.lastName||'')).trim())}`,
+        ];
+        if (c.company) lines.push(`ORG:${esc(c.company)}`);
+        if (c.role) lines.push(`TITLE:${esc(c.role)}`);
+        if (c.email) lines.push(`EMAIL;TYPE=INTERNET:${c.email}`);
+        if (c.phone) lines.push(`TEL;TYPE=CELL:${c.phone}`);
+        if (c.linkedin) {
+          const url = c.linkedin.startsWith('http')
+            ? c.linkedin
+            : `https://www.linkedin.com/in/${c.linkedin}`;
+          lines.push(`URL:${url}`);
+        }
+        const note = [c.context && `Met: ${c.context}`, c.hook && `Hook: ${c.hook}`].filter(Boolean).join(' — ');
+        if (note) lines.push(`NOTE:${esc(note)}`);
+        lines.push('END:VCARD');
+        return lines.join('\n');
+      });
+      const stamp = new Date().toISOString().slice(0, 10);
+      download(`catch-${stamp}.vcf`, vcards.join('\n\n'), 'text/vcard');
+      toast('vCards downloaded');
+    });
+
+    function esc(str) {
+      return String(str || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+    }
+
+    // ===========================================================
+    // ICS / FOLLOW-UPS
+    // ===========================================================
+    document.getElementById('export-followups').addEventListener('click', () => {
+      if (contacts.length === 0) { toast('Nothing to schedule'); return; }
+      const now = new Date();
+      const target = new Date(now);
+      target.setDate(target.getDate() + 2);
+      target.setHours(10, 0, 0, 0);
+
+      function fmtICS(date) {
+        return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+      }
+
+      const events = contacts.map((c, i) => {
+        const startTime = new Date(target);
+        // Spread events 5 min apart so they don't all fire at once
+        startTime.setMinutes(startTime.getMinutes() + i * 5);
+        const endTime = new Date(startTime);
+        endTime.setMinutes(endTime.getMinutes() + 5);
+
+        const fullName = ((c.firstName||'') + ' ' + (c.lastName||'')).trim() || 'Contact';
+        const summary = `Follow up: ${fullName}${c.company ? ' (' + c.company + ')' : ''}`;
+        const descParts = [];
+        if (c.tag) descParts.push(`Tag: ${c.tag}`);
+        if (c.role) descParts.push(`Role: ${c.role}`);
+        if (c.context) descParts.push(`Met: ${c.context}`);
+        if (c.hook) descParts.push(`Hook: ${c.hook}`);
+        if (c.email) descParts.push(`Email: ${c.email}`);
+        if (c.linkedin) {
+          const url = c.linkedin.startsWith('http') ? c.linkedin : `https://www.linkedin.com/in/${c.linkedin}`;
+          descParts.push(`LinkedIn: ${url}`);
+        }
+        if (c.phone) descParts.push(`Phone: ${c.phone}`);
+
+        return [
+          'BEGIN:VEVENT',
+          `UID:${c.id}@catch.maxencedesbois`,
+          `DTSTAMP:${fmtICS(now)}`,
+          `DTSTART:${fmtICS(startTime)}`,
+          `DTEND:${fmtICS(endTime)}`,
+          `SUMMARY:${esc(summary)}`,
+          `DESCRIPTION:${esc(descParts.join('\\n'))}`,
+          'BEGIN:VALARM',
+          'ACTION:DISPLAY',
+          `DESCRIPTION:${esc(summary)}`,
+          'TRIGGER:-PT0M',
+          'END:VALARM',
+          'END:VEVENT',
+        ].join('\n');
+      });
+
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Catch//Maxence Desbois//EN',
+        'CALSCALE:GREGORIAN',
+        ...events,
+        'END:VCALENDAR',
+      ].join('\n');
+
+      const stamp = new Date().toISOString().slice(0, 10);
+      download(`catch-followups-${stamp}.ics`, ics, 'text/calendar');
+      toast('Calendar file ready');
+    });
+
+    document.getElementById('clear-all').addEventListener('click', () => {
+      if (contacts.length === 0) { toast('Already empty'); return; }
+      if (!confirm(`Permanently delete all ${contacts.length} contacts?`)) return;
+      if (!confirm('Really? This cannot be undone.')) return;
+      contacts = [];
+      saveContacts();
+      renderCapture();
+      renderList();
+      renderStats();
+      toast('Cleared');
+    });
+
+    // ===========================================================
+    // UTILS
+    // ===========================================================
+    function escapeHTML(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ===========================================================
+    // INIT
+    // ===========================================================
+    loadContacts();
+    renderCapture();
+
+  })();
+  </script>
+
+</body>
+</html>
